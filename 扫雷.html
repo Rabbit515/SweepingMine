@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>扫雷</title>
+	<style type="text/css">
+	*{
+		padding: 0;
+		margin: 0;
+		list-style: none;
+	}
+
+	ul{
+		
+		margin:50px auto 0 auto;
+		width:110px;
+		height:110px;
+		background-color: #fff;
+		opacity: 1;
+	}
+
+	li{
+		left:0;
+		float:left;
+		width:10px;
+		height:10px;
+		border:1px solid black;
+		box-shadow:1px 2px 2px #fff;
+		text-align: center;
+		font-size: 8px;
+		font-weight: bolder;
+		display: block;
+		background-color: rgb(65,105,225);
+		color:rgb(65,105,225);
+	}
+	li:hover{
+		opacity:0.6;
+	}
+	li.f1{
+		background-image: url(bomb.jpg);
+		background-size: 10px 10px;
+	}
+	
+	li.f2{
+		background :#cbd8ea;
+
+	}
+	
+	li.f4{
+		background-image: url(bomb0.jpg);
+		background-size: 10px 10px;
+		display: block;
+	}
+	p{	
+		width:100px;
+		height:50px;
+		margin: 0 auto;
+		padding-left: 20px;
+		
+	}
+	</style>
+</head>
+<body>
+	<div class='wrapper'>
+		<ul>	
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>
+			<li class="f0"></li>	
+		</ul>
+	</div>
+	<script type="text/javascript">
+		var oDiv = document.getElementsByTagName('div')[0];
+		var ul = document.getElementsByTagName('ul')[0];
+		var Li = document.getElementsByTagName('li');
+		var len = Li.length;
+		
+		// console.log(len);
+	
+
+
+		//数组去重
+		function random(){
+
+				var arr = [];
+				var obj = {};
+				for(var i = 0; i < 10; i ++){
+					var len = Math.floor(Math.random() * 81);
+					if(!obj[len]){
+					obj[len] = 'a';
+					arr.push(len);
+					}else{
+						i --;
+					}
+					Li[arr[i]].className = 'f3';
+				}
+				return arr;
+
+		}
+		//取出占位数组
+		var index = random();
+		console.log(index);
+		
+
+		//遍历每个li，判断周围雷数，填数字
+		function number (){
+			for(var j = 0; j < index.length; j ++){
+
+				for(var i = 0; i < len; i ++){
+						if(i % 9 == 0 && i != 0 && i != 72){
+							var arr = [Li[i - 9], Li[i - 8], Li[i + 1], Li[i + 9], Li[i + 10]];
+							var len1 = arr.length;
+							var value = 0;
+							for(var h = 0;h < len1; h ++){
+								if(arr[h].className == 'f4' || arr[h].className == 'f3'){
+									value ++;
+								}
+							}
+
+							if(value == 1){
+								Li[i].innerText = 1;
+							}
+							if(value == 2){
+								Li[i].innerText = 2;
+							}
+							if(value == 3){
+								Li[i].innerText = 3;
+							}
+							if(value == 4){
+								Li[i].innerText = 4;
+							}
+								
+						}else if( (i + 1) % 9 == 0 && i != 8 && i != 80){
+							var arr = [Li[i - 10], Li[i - 9], Li[i - 1], Li[i + 8], Li[i + 9]];
+							var len1 = arr.length;
+							var value = 0;
+							for(var h = 0;h < len1; h ++){
+								if(arr[h].className == 'f4' || arr[h].className == 'f3'){
+									value ++;
+								}
+							}
+							if(value == 1){
+								Li[i].innerText = 1;
+							}
+							if(value == 2){
+								Li[i].innerText = 2;
+							}
+							if(value == 3){
+								Li[i].innerText = 3;
+							}
+							if(value == 4){
+								Li[i].innerText = 4;
+							}	
+						}else if(i > 0 && i < 8){
+							var arr = [Li[i - 1], Li[i + 1], Li[i + 8], Li[i + 9], Li[i + 10]];
+							var len1 = arr.length;
+							var value = 0;
+							for(var h = 0;h < len1; h ++){
+								if(arr[h].className == 'f4' || arr[h].className == 'f3'){
+									value ++;
+								}
+							}
+							if(value == 1){
+								Li[i].innerText = 1;
+							}
+							if(value == 2){
+								Li[i].innerText = 2;
+							}
+							if(value == 3){
+								Li[i].innerText = 3;
+							}
+							if(value == 4){
+								Li[i].innerText = 4;
+							}	
+						}else if(i > 72 && i < 80){
+							var arr = [Li[i - 10], Li[i - 9], Li[i - 8], Li[i - 1], Li[i + 1]];
+							var len1 = arr.length;
+							var value = 0;
+							for(var h = 0;h < len1; h ++){
+								if(arr[h].className == 'f4' || arr[h].className == 'f3'){
+									value ++;
+								}
+							}
+							if(value == 1){
+								Li[i].innerText = 1;
+							}
+							if(value == 2){
+								Li[i].innerText = 2;
+							}
+							if(value == 3){
+								Li[i].innerText = 3;
+							}
+							if(value == 4){
+								Li[i].innerText = 4;
+							}	
+						}else if(i == 0){
+							var arr = [Li[i + 1],Li[i + 9], Li[i + 10]];
+							var len1 = arr.length;
+							var value = 0;
+							for(var h = 0;h < len1; h ++){
+								if(arr[h].className == 'f4' || arr[h].className == 'f3'){
+									value ++;
+								}
+							}
+							if(value == 1){
+								Li[i].innerText = 1;
+							}
+							if(value == 2){
+								Li[i].innerText = 2;
+							}
+							if(value == 3){
+								Li[i].innerText = 3;
+							}
+							if(value == 4){
+								Li[i].innerText = 4;
+							}	
+						}else if(i == 8){
+							var arr = [Li[i - 1],Li[i + 8], Li[i + 9]];
+							var len1 = arr.length;
+							var value = 0;
+							for(var h = 0;h < len1; h ++){
+								if(arr[h].className == 'f4' || arr[h].className == 'f3'){
+									value ++;
+								}
+							}
+							if(value == 1){
+								Li[i].innerText = 1;
+							}
+							if(value == 2){
+								Li[i].innerText = 2;
+							}
+							if(value == 3){
+								Li[i].innerText = 3;
+							}
+							if(value == 4){
+								Li[i].innerText = 4;
+							}	
+						}else if(i == 72){
+							var arr = [Li[i - 9], Li[i - 8],Li[i + 1] ];
+							var len1 = arr.length;
+							var value = 0;
+							for(var h = 0;h < len1; h ++){
+								if(arr[h].className == 'f4' || arr[h].className == 'f3'){
+									value ++;
+								}
+							}
+							if(value == 1){
+								Li[i].innerText = 1;
+							}
+							if(value == 2){
+								Li[i].innerText = 2;
+							}
+							if(value == 3){
+								Li[i].innerText = 3;
+							}
+							if(value == 4){
+								Li[i].innerText = 4;
+							}	
+						}else if(i == 80){
+							var arr = [Li[i - 10], Li[i - 9],Li[i - 1]];
+							var len1 = arr.length;
+							var value = 0;
+							for(var h = 0;h < len1; h ++){
+								if(arr[h].className == 'f4' || arr[h].className == 'f3'){
+									value ++;
+								}
+							}
+							if(value == 1){
+								Li[i].innerText = 1;
+							}
+							if(value == 2){
+								Li[i].innerText = 2;
+							}
+							if(value == 3){
+								Li[i].innerText = 3;
+							}
+							if(value == 4){
+								Li[i].innerText = 4;
+							}	
+						}
+						else{
+							var arr = [Li[i - 10], Li[i - 9], Li[i - 8], Li[i - 1], Li[i + 1], Li[i + 8], Li[i + 9], Li[i + 10]];
+							var len1 = arr.length;
+							var value = 0;
+							for(var h = 0;h < len1; h ++){
+								if(arr[h].className == 'f4' || arr[h].className == 'f3'){
+									value ++;
+								}
+							}
+							if(value == 1){
+								Li[i].innerText = 1;
+							}
+							if(value == 2){
+								Li[i].innerText = 2;
+							}
+							if(value == 3){
+								Li[i].innerText = 3;
+							}
+							if(value == 4){
+								Li[i].innerText = 4;
+							}	
+		
+						}			
+				}
+
+				// console.log(Li[index[j]]);
+
+				Li[index[j]].innerText = '';
+			}
+
+		}
+		number ();
+
+		// function sweep (){
+			
+		// }
+
+		//点击事件
+		ul.onclick = function(e){
+
+			//事件源对象
+			var event = e || window.event;
+			var target = event.target || event.srcElement;
+			target.className = 'f2';
+
+			//把占位数组的每一位，点击时变成雷
+			for(var i = 0; i < index.length; i ++){
+				if(target === Li[index[i]]){
+					Li[index[i]].className = 'f4';
+
+				}
+			}
+
+			//当点到一个雷的时候。所有雷都会出现
+			if(target.className === 'f4'){
+				for(var i = 0; i < index.length; i ++){
+					Li[index[i]].className = 'f4';
+					Li[index[i]].innerText = '';
+
+				}
+				var oP = document.createElement('p');
+				oP.innerText = 'GAME OVER!';
+				oDiv.appendChild(oP);
+
+			}
+
+			//雷的扩散
+			if(target.innerText == ''){
+				for(var i = 0; i < len; i ++){
+					if(Li[i] == target){
+						if(i % 9 == 0 && i != 0 && i != 72){
+							var arr = [Li[i - 9], Li[i - 8], Li[i + 1], Li[i + 9], Li[i + 10]];
+							console.log(arr);
+							var len2 = arr.length;
+							for(var g = 0;g < len2; g ++){
+								if(arr[g].innerText == ''){
+									for(var j = 0; j < len; j ++){
+										if(Li[j] === arr[g]){
+											// console.log(j);
+											// console.log(Li[j]);	
+											Li[j].className = 'f2';		
+										}
+									}
+								}
+								else if(arr[g].innerText != '' || arr[g].className != 'f4'){
+									// console.log(arr[g]);
+									arr[g].className = 'f2';
+									
+								}
+								
+							}
+
+						}else if((i + 1) % 9 == 0 && i != 8 && i != 80) {
+							var arr = [Li[i - 10], Li[i - 9], Li[i - 1], Li[i + 8], Li[i + 9]];
+							var len2 = arr.length;
+							for(var g = 0;g < len2; g ++){
+								if(arr[g].innerText == ''){
+									for(var j = 0; j < len; j ++){
+										if(Li[j] === arr[g]){
+											// console.log(j);
+											// console.log(Li[j]);	
+											Li[j].className = 'f2';
+											// if(! Li[j].innerText){
+
+											// }
+											
+										}
+									}
+								}
+								else if(arr[g].innerText != '' || arr[g].className != 'f4'){
+									// console.log(arr[g]);
+									arr[g].className = 'f2';
+									// break;
+								}
+								
+							}
+						}
+						else if(i > 0 && i < 8){
+							var arr = [Li[i - 1], Li[i + 1], Li[i + 8], Li[i + 9], Li[i + 10]];
+							var len2 = arr.length;
+							for(var g = 0;g < len2; g ++){
+								if(arr[g].innerText == ''){
+									for(var j = 0; j < len; j ++){
+										if(Li[j] === arr[g]){
+											// console.log(j);
+											// console.log(Li[j]);	
+											Li[j].className = 'f2';
+											// if(! Li[j].innerText){
+
+											// }
+											
+										}
+									}
+								}
+								else if(arr[g].innerText != '' || arr[g].className != 'f4'){
+									// console.log(arr[g]);
+									arr[g].className = 'f2';
+									// break;
+								}
+								
+							}
+						}else if(i > 72 && i < 80){
+							var arr = [Li[i - 10], Li[i - 9], Li[i - 8], Li[i - 1], Li[i + 1]];
+							var len2 = arr.length;
+							for(var g = 0;g < len2; g ++){
+								if(arr[g].innerText == ''){
+									for(var j = 0; j < len; j ++){
+										if(Li[j] === arr[g]){
+											// console.log(j);
+											// console.log(Li[j]);	
+											Li[j].className = 'f2';
+											// if(! Li[j].innerText){
+
+											// }
+											
+										}
+									}
+								}
+								else if(arr[g].innerText != '' || arr[g].className != 'f4'){
+									// console.log(arr[g]);
+									arr[g].className = 'f2';
+									// break;
+								}
+								
+							}
+						}else if(i == 0){
+							var arr = [Li[i + 1],Li[i + 9], Li[i + 10]];
+							var len2 = arr.length;
+							for(var g = 0;g < len2; g ++){
+								if(arr[g].innerText == ''){
+									for(var j = 0; j < len; j ++){
+										if(Li[j] === arr[g]){
+											// console.log(j);
+											// console.log(Li[j]);	
+											Li[j].className = 'f2';
+											// if(! Li[j].innerText){
+
+											// }
+											
+										}
+									}
+								}
+								else if(arr[g].innerText != '' || arr[g].className != 'f4'){
+									// console.log(arr[g]);
+									arr[g].className = 'f2';
+									// break;
+								}
+								
+							}
+
+						}else if(i == 8){
+							var arr = [Li[i - 1],Li[i + 8], Li[i + 9]];
+							var len2 = arr.length;
+							for(var g = 0;g < len2; g ++){
+								if(arr[g].innerText == ''){
+									for(var j = 0; j < len; j ++){
+										if(Li[j] === arr[g]){
+											// console.log(j);
+											// console.log(Li[j]);	
+											Li[j].className = 'f2';
+											// if(! Li[j].innerText){
+
+											// }
+											
+										}
+									}
+								}
+								else if(arr[g].innerText != '' || arr[g].className != 'f4'){
+									// console.log(arr[g]);
+									arr[g].className = 'f2';
+									// break;
+								}
+								
+							}
+						}else if(i == 72){
+							var arr = [Li[i - 9], Li[i - 8],Li[i + 1] ];
+							var len2 = arr.length;
+							for(var g = 0;g < len2; g ++){
+								if(arr[g].innerText == ''){
+									for(var j = 0; j < len; j ++){
+										if(Li[j] === arr[g]){
+											// console.log(j);
+											// console.log(Li[j]);	
+											Li[j].className = 'f2';
+											// if(! Li[j].innerText){
+
+											// }
+											
+										}
+									}
+								}
+								else if(arr[g].innerText != '' || arr[g].className != 'f4'){
+									// console.log(arr[g]);
+									arr[g].className = 'f2';
+									// break;
+								}
+								
+							}
+						}else if(i == 80){
+							var arr = [Li[i - 10], Li[i - 9],Li[i - 1]];
+							var len2 = arr.length;
+							for(var g = 0;g < len2; g ++){
+								if(arr[g].innerText == ''){
+									for(var j = 0; j < len; j ++){
+										if(Li[j] === arr[g]){
+											// console.log(j);
+											// console.log(Li[j]);	
+											Li[j].className = 'f2';
+											// if(! Li[j].innerText){
+
+											// }
+											
+										}
+									}
+								}
+								else if(arr[g].innerText != '' || arr[g].className != 'f4'){
+									// console.log(arr[g]);
+									arr[g].className = 'f2';
+									// break;
+								}
+								
+							}
+
+						}else {
+							var arr = [Li[i - 10], Li[i - 9], Li[i - 8], Li[i - 1], Li[i + 1], Li[i + 8], Li[i + 9], Li[i + 10]];
+							var len2 = arr.length;
+							for(var g = 0;g < len2; g ++){
+								if(arr[g].innerText == ''){
+									for(var j = 0; j < len; j ++){
+										if(Li[j] === arr[g]){
+											// console.log(j);
+											// console.log(Li[j]);	
+											Li[j].className = 'f2';
+										
+											
+										}
+									}
+								}
+								else if(arr[g].innerText != '' || arr[g].className != 'f4'){
+									// console.log(arr[g]);
+									arr[g].className = 'f2';
+									// break;
+								}
+								
+							}
+						}
+					
+					}
+				}
+
+			}
+
+		}
+		//右键加入小旗
+		ul.onmousedown = function (e){
+			var event = e || window.event;
+			var target = event.target || event.srcElement;
+			target.className = 'f0';
+			
+			if(e.button == 2){
+				// time ++;
+				// console.log(time);				
+					target.className = 'img';
+					var oImg = document.createElement('img');
+					oImg.src = 'flag.jpg';
+					oImg.style.width = '10px';
+					oImg.style.height = '10px';
+					target.appendChild(oImg);				
+			}	
+			// for(var i = 0; i < len; i ++){
+			// 	var arrL = [Li[i].className];
+			// 	var lenL = arrL.length;
+
+			// }	
+		}
+
+
+		//取消右键默认事件
+		ul.oncontextmenu = function (){
+			return false;
+		}
+		
+		
+	
+
+			
+			
+	
+
+	</script>
+
+</body>
+</html>
